@@ -6,10 +6,13 @@ export default function DashBoardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-slate-100 overflow-y-scroll w-screen h-screen antialiased text-slate-300 selection:bg-blue-600 selection:text-white">
+    <div className="bg-stone-50 overflow-y-scroll w-screen h-screen antialiased selection:bg-emerald-800 selection:text-stone-100"
+      style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}>
       <div className="flex">
         <Sidebar />
-        <div className="p-2 w-full text-slate-800">{children}</div>
+        <div className="ml-64 p-8 w-full min-h-screen text-stone-800 bg-stone-50">
+          {children}
+        </div>
       </div>
     </div>
   );
