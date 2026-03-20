@@ -10,8 +10,13 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/**",
       },
+       {
+        protocol: "https",
+        hostname: "raw.githubusercontent.com",
+        pathname: "/**",
+      },
     ],
-    domains: ["images.unsplash.com"],
+  
   },
 };
 
