@@ -1,4 +1,5 @@
 import { PokemonGrid, PokemonsResponse, SimplePokemons } from "@/app/pokemons";
+import { cacheLife, cacheTag, revalidateTag } from "next/cache";
 
 const getPokemons = async ({
   limit = 20,
@@ -8,6 +9,8 @@ const getPokemons = async ({
     `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`,
   ).then((res) => res.json());
 
+ 
+
   return data.results.map((result) => ({
     id: result.url.split("/").slice(-2, -1)[0],
     name: result.name,
@@ -15,6 +18,11 @@ const getPokemons = async ({
 };
 
 export default async function PokemonsPage() {
+  "use cache";
+
+  cacheTag("pokemons");
+
+  revalidateTag("pokemons", "max")
   const pokemons = await getPokemons({ limit: 151, offset: 0 });
 
   return (

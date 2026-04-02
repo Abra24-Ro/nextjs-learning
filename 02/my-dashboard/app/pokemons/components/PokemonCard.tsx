@@ -17,10 +17,8 @@ export const PokemonCard = ({ pokemon }: Props) => {
 
   return (
     <div className="w-full bg-[#f8f7f4] border border-[#e4e1d7] rounded-md overflow-hidden hover:shadow-md transition duration-200">
-
       {/* HEADER */}
       <div className="flex flex-col items-center py-8 px-6 border-b border-[#e4e1d7] bg-[#1f2a24]">
-
         <div className="w-20 h-20 rounded-full bg-[#2c3a31] border border-[#3e4d42] flex items-center justify-center mb-4">
           <Image
             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}
@@ -50,16 +48,13 @@ export const PokemonCard = ({ pokemon }: Props) => {
 
       {/* ACTIONS */}
       <div className="divide-y divide-[#e4e1d7]">
-
         <Link
-          href="/dashboard/main"
+          href={`/dashboard/pokemon/${id}`}
           className="flex items-center gap-3 px-5 py-4 hover:bg-[#f1efe9] transition"
         >
           <IoGridOutline className="text-[#6b756d]" size={18} />
           <div>
-            <p className="text-[13px] text-[#2b2f2c] font-medium">
-              Campañas
-            </p>
+            <p className="text-[13px] text-[#2b2f2c] font-medium">Campañas</p>
             <span className="text-[11px] text-[#8c877a]">
               Ver campañas activas
             </span>
@@ -67,31 +62,27 @@ export const PokemonCard = ({ pokemon }: Props) => {
         </Link>
 
         <Link
-          href="/dashboard/main"
+          href={`/dashboard/pokemon/${id}`}
           className="flex items-center gap-3 px-5 py-4 hover:bg-[#f1efe9] transition"
         >
           <IoHeartOutline className="text-[#6b756d]" size={18} />
           <div>
-            <p className="text-[13px] text-[#2b2f2c] font-medium">
-              Donaciones
-            </p>
+            <p className="text-[13px] text-[#2b2f2c] font-medium">Donaciones</p>
             <span className="text-[11px] text-[#8c877a]">
               Últimas donaciones
             </span>
           </div>
         </Link>
-
       </div>
 
       {/* FOOTER */}
       <Link
-        href="/dashboard/main"
+        href={`/dashboard/pokemon/${name}`}
         className="flex items-center px-5 py-4 text-[12px] tracking-[0.15em] uppercase text-[#7a847c] hover:bg-[#f1efe9] transition"
       >
         Dashboard
         <IoArrowForwardOutline className="ml-auto text-[#a8a39a]" size={14} />
       </Link>
-
     </div>
   );
 };
