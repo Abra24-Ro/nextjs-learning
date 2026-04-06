@@ -1,5 +1,5 @@
 import { PokemonGrid, PokemonsResponse, SimplePokemons } from "@/app/pokemons";
-import { cacheLife, cacheTag, revalidateTag } from "next/cache";
+
 
 const getPokemons = async ({
   limit = 20,
@@ -18,11 +18,7 @@ const getPokemons = async ({
 };
 
 export default async function PokemonsPage() {
-  "use cache";
-
-  cacheTag("pokemons");
-
-  revalidateTag("pokemons", "max")
+  
   const pokemons = await getPokemons({ limit: 151, offset: 0 });
 
   return (

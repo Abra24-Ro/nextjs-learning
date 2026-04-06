@@ -48,7 +48,7 @@ export default function CounterPage() {
         />
 
        
-        <CartCounter />
+        <CartCounter value={20} />
 
        
       </div>

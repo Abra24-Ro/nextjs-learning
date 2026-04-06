@@ -1,22 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/app/store";
+import { addOne, initCounterState } from "@/app/store/counter/counterSlice";
+
+import { useEffect } from "react";
 
 interface Props {
   value?: number;
 }
 
+export interface CounterResponse {
+  method:string;
+  count:number
+}
+
+
+
+
+const getApiCounter = async ():Promise<CounterResponse> => {
+  const data = await fetch("/api/counter");
+  const response = await data.json();
+  return response;
+};
+
 export const CartCounter = ({ value = 0 }: Props) => {
-  const [count, setCount] = useState(value);
+  const count = useAppSelector((state) => state.counter.count);
+  const dispatch = useAppDispatch();
 
-  const addEntry = () => setCount((c) => c + 1);
+  useEffect(() => {
+    getApiCounter().then(({count}) => {
+      dispatch(initCounterState(count));
+    });
+  }, [dispatch]);
 
-  const removeEntry = () => {
-    if (count <= 0) return setCount(0);
-    setCount((c) => c - 1);
-  };
 
-  const resetEntry = () => setCount(0);
+  
 
   return (
     <>
@@ -51,7 +69,7 @@ export const CartCounter = ({ value = 0 }: Props) => {
       {/* Buttons */}
       <div style={{ display: "flex", gap: "12px" }}>
         <button
-          onClick={addEntry}
+          onClick={() => dispatch(addOne())}
           style={{
             width: "48px",
             height: "48px",
@@ -78,7 +96,7 @@ export const CartCounter = ({ value = 0 }: Props) => {
           +
         </button>
         <button
-          onClick={removeEntry}
+          // onClick={removeEntry}
           style={{
             width: "48px",
             height: "48px",
@@ -110,7 +128,7 @@ export const CartCounter = ({ value = 0 }: Props) => {
 
       {/* Reset */}
       <button
-        onClick={resetEntry}
+        // onClick={resetEntry}
         style={{
           marginTop: "20px",
           background: "none",
