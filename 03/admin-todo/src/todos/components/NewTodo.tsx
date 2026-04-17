@@ -2,24 +2,26 @@
 
 import { useState } from "react";
 import { IoTrashOutline } from "react-icons/io5";
-import * as todosApi from "@/src/todos/helpers/todos";
+
+import { addTodo, deleteCompleteTodo } from "../actions/todo-action";
 import { useRouter } from "next/navigation";
 
-export const NewTodo = () => {
-  const router = useRouter();
+interface Props {
+  hasCompleted: boolean;
+}
 
+export const NewTodo = ({ hasCompleted }: Props) => {
   const [description, setDescription] = useState("");
+  const [canDelete, setCanDelete] = useState(hasCompleted);
+  const router = useRouter();
 
   const onSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (description.trim() === "") return;
 
-    const newTodo = await todosApi.createTodo(description);
-
-    router.refresh();
+    await addTodo(description);
 
     setDescription("");
-    return newTodo;
   };
 
   const onCompleteDelete = async () => {
@@ -29,8 +31,8 @@ export const NewTodo = () => {
 
     if (!confirm) return;
 
-    await todosApi.completeDeleteTodo();
-
+    await deleteCompleteTodo();
+    setCanDelete(false);
     router.refresh();
   };
 
@@ -95,17 +97,18 @@ export const NewTodo = () => {
       <button
         type="button"
         onClick={onCompleteDelete}
-        className="
-            cursor-pointer
-          flex items-center gap-1.5
-          px-4 py-2.5 rounded-xl
-          bg-white border border-border
-          text-sm font-medium text-text-muted
-          hover:border-red-300 hover:text-red-500 hover:bg-red-50
-          active:scale-95
-          transition-all duration-200
-          shrink-0
-        "
+        disabled={!canDelete}
+        className={`
+    flex items-center gap-1.5
+    px-4 py-2.5 rounded-xl
+    border text-sm font-medium
+    transition-all duration-200 shrink-0
+    ${
+      canDelete
+        ? "cursor-pointer bg-white border-border text-text-muted hover:border-red-300 hover:text-red-500 hover:bg-red-50 active:scale-95"
+        : "cursor-not-allowed bg-white border-border text-text-hint opacity-40"
+    }
+  `}
       >
         <IoTrashOutline size={15} />
         Eliminar completadas

@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { TbCircleCaretRight } from "react-icons/tb";
 import { SidebarItem } from "./SiderbarItem";
+import { FaBolt } from "react-icons/fa";
 
 const menuItem = [
   {
@@ -14,6 +15,11 @@ const menuItem = [
     icon: <TbCircleCaretRight size={20} />,
     label: "Categories",
     href: "/dashboard/rest-todos",
+  },
+   {
+    icon: <FaBolt size={20} />,
+    label: "Server Actions",
+    href: "/dashboard/server-todos",
   },
 ];
 
