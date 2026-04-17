@@ -79,3 +79,23 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
+
+
+export async function DELETE(request: NextRequest) {
+  try {
+    await prisma.todo.deleteMany({
+      where: {
+        complete: true,
+      },
+    });
+
+    return NextResponse.json({ message: "Completed todos deleted" });
+  } catch (error) {
+    console.error("[TODO_DELETE]", error);
+    return NextResponse.json(
+      { message: "Internal server error" },
+      { status: 500 },
+    );
+  }
+}

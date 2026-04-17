@@ -50,7 +50,7 @@ export const Sidebar = () => {
             <Image
               width={150}
               height={150}
-              src="https://tailus.io/sources/blocks/stats-cards/preview/images/second_user.webp"
+              src="/user.svg"
               alt="avatar"
               className="
                 w-10 h-10 m-auto rounded-full object-cover

@@ -20,7 +20,7 @@ export async function GET(request: NextRequest, { params }: Segments) {
     if (!todo) {
       return NextResponse.json(
         { message: "Todo not found", id },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -29,7 +29,7 @@ export async function GET(request: NextRequest, { params }: Segments) {
     console.error("[TODO_GET]", error);
     return NextResponse.json(
       { message: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -48,7 +48,7 @@ export async function PUT(request: NextRequest, { params }: Segments) {
     if (!todo) {
       return NextResponse.json(
         { message: "Todo not found", id },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -75,13 +75,14 @@ export async function PUT(request: NextRequest, { params }: Segments) {
     if (error instanceof yup.ValidationError) {
       return NextResponse.json(
         { message: "Validation error", errors: error.errors },
-        { status: 400 }
+        { status: 400 },
       );
     }
     console.error("[TODO_PUT]", error);
     return NextResponse.json(
       { message: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
+
