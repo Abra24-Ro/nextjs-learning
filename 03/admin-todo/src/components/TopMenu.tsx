@@ -1,25 +1,52 @@
-import { CiBellOn, CiChat1, CiMenuBurger, CiSearch } from "react-icons/ci";
+import { cookies } from "next/headers";
+import {
+  CiChat1,
+  CiMenuBurger,
+  CiSearch,
+  
+} from "react-icons/ci";
+import { CartWidget } from "./CartWidget";
 
-export const TopMenu = () => {
+export const TopMenu = async () => {
+  const cookieStore = await cookies();
+  const cart = JSON.parse(cookieStore.get("cart")?.value || "[]") as string[];
+
+  const getTotalCount = () => {
+    let items = 0;
+
+    Object.values(cart).forEach((value) => {
+      items += value as unknown as number;
+    });
+
+    return items;
+  };
+
   return (
-    <div className="sticky z-10 top-0 h-16 border-b border-[#D1C9B0] bg-[#F5F0E8] lg:py-2.5">
-      <div className="px-6 flex items-center justify-between h-full space-x-4">
-
-        <h5 className="hidden text-xl font-medium text-[#292524] lg:block">
+    <div className="sticky z-10 top-0 h-16 border-b border-border bg-bg">
+      <div className="px-6 flex items-center justify-between h-full gap-4">
+        <h5 className="hidden text-xl font-medium text-text lg:block">
           Dashboard
         </h5>
 
-        <button className="cursor-pointer w-12 h-16 -mr-2 border-r border-[#D1C9B0] flex items-center justify-center text-[#78716C] hover:text-[#16A34A] transition-colors lg:hidden">
-          <CiMenuBurger size={22} />
+        <button
+          className="
+          cursor-pointer w-10 h-16
+          border-r border-border
+          flex items-center justify-center
+          text-text-muted hover:text-primary
+          transition-colors duration-200
+          lg:hidden shrink-0
+        "
+        >
+          <CiMenuBurger size={20} />
         </button>
 
         <div className="flex items-center gap-2 ml-auto">
-
           {/* Search — desktop */}
           <div className="hidden md:block">
             <div className="relative flex items-center">
-              <span className="absolute left-3 text-[#A8A29E]">
-                <CiSearch size={18} />
+              <span className="absolute left-3 text-text-hint pointer-events-none">
+                <CiSearch size={16} />
               </span>
               <input
                 type="search"
@@ -27,12 +54,12 @@ export const TopMenu = () => {
                 id="leadingIcon"
                 placeholder="Buscar..."
                 className="
-                  w-56 pl-9 pr-4 py-2 rounded-xl
-                  text-sm text-[#292524]
-                  bg-white border border-[#D1C9B0]
-                  placeholder:text-[#A8A29E]
+                  w-52 pl-8 pr-4 py-2 rounded-xl
+                  text-sm text-text
+                  bg-white border border-border
+                  placeholder:text-text-hint
                   outline-none
-                  focus:border-[#16A34A] focus:ring-2 focus:ring-[#DCFCE7]
+                  focus:border-primary focus:ring-2 focus:ring-primary-muted
                   transition-all duration-200
                 "
               />
@@ -40,44 +67,35 @@ export const TopMenu = () => {
           </div>
 
           {/* Search — mobile */}
-          <button className="
+          <button
+            className="
             cursor-pointer
             flex items-center justify-center w-9 h-9 rounded-xl
-            bg-white border border-[#D1C9B0]
-            text-[#78716C] hover:text-[#16A34A] hover:border-[#86EFAC] hover:bg-[#F0FDF4]
+            bg-white border border-border text-text-muted
+            hover:text-primary hover:border-primary-light hover:bg-surface-alt
             transition-all duration-200
             md:hidden
-          ">
-            <CiSearch size={18} />
+          "
+          >
+            <CiSearch size={17} />
           </button>
 
           {/* Chat */}
-          <button className="
+          <button
+            className="
             cursor-pointer
-            relative flex items-center justify-center w-9 h-9 rounded-xl
-            bg-white border border-[#D1C9B0]
-            text-[#78716C] hover:text-[#16A34A] hover:border-[#86EFAC] hover:bg-[#F0FDF4]
+            flex items-center justify-center w-9 h-9 rounded-xl
+            bg-white border border-border text-text-muted
+            hover:text-primary hover:border-primary-light hover:bg-surface-alt
             transition-all duration-200
-          ">
-            <CiChat1 size={18} />
+          "
+          >
+            <CiChat1 size={17} />
           </button>
 
-          {/* Bell con badge */}
-          <button className="
-            cursor-pointer
-            relative flex items-center justify-center w-9 h-9 rounded-xl
-            bg-white border border-[#D1C9B0]
-            text-[#78716C] hover:text-[#16A34A] hover:border-[#86EFAC] hover:bg-[#F0FDF4]
-            transition-all duration-200
-          ">
-            <CiBellOn size={18} />
-            <span className="
-              absolute top-1.5 right-1.5
-              w-2 h-2 rounded-full
-              bg-[#D97706]
-            " />
-          </button>
+          {/* Carrito con badge */}
 
+          <CartWidget count={getTotalCount()} />
         </div>
       </div>
     </div>

@@ -1,34 +1,31 @@
-export const WidgetItem = () => {
+interface WidgetItemProps {
+  title: string;
+  label?: string;
+  children: React.ReactNode;
+}
+
+export const WidgetItem = ({ title, label, children }: WidgetItemProps) => {
   return (
     <div className="md:col-span-2 lg:col-span-1">
-      <div className="h-full py-8 px-6 space-y-6 rounded-xl border border-[#D1C9B0] bg-white">
-        <div>
-          <h5 className="text-base font-medium text-[#78716C] text-center">
-            Global Activities
+      <div className="h-full py-6 px-5 space-y-4 rounded-2xl border border-border bg-white">
+
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-border pb-3">
+          <h5 className="text-sm font-medium text-text">
+            {title}
           </h5>
-
-          <div className="mt-2 flex justify-center items-baseline gap-3">
-            <h3 className="text-3xl font-medium text-[#292524]">$23,988</h3>
-            <div className="flex items-center gap-1 text-[#16A34A] text-sm font-medium">
-              <svg
-                className="w-2.5 h-2.5"
-                viewBox="0 0 12 15"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M6.00001 0L12 8H-3.05176e-05L6.00001 0Z"
-                  fill="currentColor"
-                />
-              </svg>
-              <span>2%</span>
-            </div>
-          </div>
-
-          <span className="block text-center text-sm text-[#A8A29E] mt-1">
-            Compared to last week $13,988
-          </span>
+          {label && (
+            <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-primary-muted text-primary-hover">
+              {label}
+            </span>
+          )}
         </div>
+
+        {/* Content */}
+        <div>
+          {children}
+        </div>
+
       </div>
     </div>
   );

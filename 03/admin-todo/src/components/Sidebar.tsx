@@ -3,7 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { TbCircleCaretRight } from "react-icons/tb";
 import { SidebarItem } from "./SiderbarItem";
-import { FaBolt } from "react-icons/fa";
+import { FaBolt, FaCookie } from "react-icons/fa";
+import { FaBasketShopping } from "react-icons/fa6";
 
 const menuItem = [
   {
@@ -16,10 +17,20 @@ const menuItem = [
     label: "Categories",
     href: "/dashboard/rest-todos",
   },
-   {
+  {
     icon: <FaBolt size={20} />,
     label: "Server Actions",
     href: "/dashboard/server-todos",
+  },
+   {
+    icon: <FaCookie size={20} />,
+    label: "Cookies",
+    href: "/dashboard/cookies",
+  },
+   {
+    icon: <FaBasketShopping size={20} />,
+    label: "Products",
+    href: "/dashboard/products",
   },
 ];
 
